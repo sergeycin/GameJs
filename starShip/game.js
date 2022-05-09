@@ -36,7 +36,7 @@ var timer = 0; // Кулдаун для спавна астероидов
 
 var shipCoord = {x: 300, y: 300}
 
-fone.onload = () =>{
+fireImage.onload = () =>{
     game()
 }
 canvas.addEventListener('mousemove', (event) => {
@@ -60,7 +60,7 @@ function render(){
         Bullet[b].y -= 10;
     }
     for (f in fire){
-        context.drawImage(fireImage,fire[f].x,fire[f].y,32,32)
+        context.drawImage(fireImage,128*Math.floor(fire[f].animx),128*Math.floor(fire[f].animy),128,128,fire[f].x,fire[f].y,100,100)
     }
     
 
@@ -69,7 +69,14 @@ function udpate(){
     
     timer++;    
 
-    
+     // Анимация взырва
+     for (r in fire){
+        fire[r].animx = fire[r].animx+0.3
+     
+        if(fire[r].animx>7){fire[r].animy++; fire[r].animx=0}
+        if(fire[r].animy>7)
+        fire.splice(r,1)
+    }
 
     if(timer%10 == 0){
     Bullet.push({
@@ -95,6 +102,9 @@ function udpate(){
         })
     }
 
+   
+
+
     for(i in CoordAster){
 
     for(j in Bullet){
@@ -102,8 +112,10 @@ function udpate(){
       
             if(Math.abs(CoordAster[i].x+25-Bullet[j].x-15)<50 && Math.abs(CoordAster[i].y - Bullet[j].y) <25){
                     fire.push({
-                        x: CoordAster[i].x,
-                        y: CoordAster[i].y
+                        x: CoordAster[i].x-25,
+                        y: CoordAster[i].y-25,
+                        animx:0,
+                        animy:0
                     })
                     CoordAster.splice(i,1);
                     Bullet.splice(j,1); break;
