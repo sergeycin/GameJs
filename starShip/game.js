@@ -36,9 +36,12 @@ var timer = 0; // Кулдаун для спавна астероидов
 
 var shipCoord = {x: 300, y: 300}
 
+
 fireImage.onload = () =>{
     game()
 }
+
+
 canvas.addEventListener('mousemove', (event) => {
     shipCoord.x = event.offsetX-25
     shipCoord.y = event.offsetY-25
@@ -55,10 +58,13 @@ function render(){
         CoordAster[i].x+= CoordAster[i].dx
     }
 
+
     for (b in Bullet){
         context.drawImage(bull,Bullet[b].x,Bullet[b].y,32,32)
         Bullet[b].y -= 10;
     }
+
+
     for (f in fire){
         context.drawImage(fireImage,128*Math.floor(fire[f].animx),128*Math.floor(fire[f].animy),128,128,fire[f].x,fire[f].y,100,100)
     }
@@ -79,6 +85,7 @@ function udpate(){
     }
 
     if(timer%10 == 0){
+        
     Bullet.push({
         x: shipCoord.x+35,
         y: shipCoord.y-15

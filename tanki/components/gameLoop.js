@@ -12,4 +12,4 @@ export default class GameLoop{
         this.update()
         this.render()
     }
-}
+} 
